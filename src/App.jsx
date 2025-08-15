@@ -18,42 +18,62 @@ export const goods = [
 ];
 
 export const App = () => {
-  const [value, setValue] = useState('Jam');
+  const [selectedGood, setValue] = useState('Jam');
 
   return (
+    <main className="section container">
+      <h1 className="title is-flex is-align-items-center">No goods selected</h1>
 
-  <main className="section container">
-    <h1 className="title is-flex is-align-items-center">No goods selected</h1>
+      <h1 className="title is-flex is-align-items-center">
+        Jam is selected
+        <button data-cy="ClearButton" type="button" className="delete ml-3" />
+      </h1>
 
-    <h1 className="title is-flex is-align-items-center">
-      Jam is selected
-      <button data-cy="ClearButton" type="button" className="delete ml-3" />
-    </h1>
+      <table className="table">
+        <tbody>
+          {goods.map(n => (
+            <tr
+              data-cy="Good"
+              className ={classNames('is-flex', 'is-align-items-center', {
+                'has-background-success-light': n === selectedGood,
+              })}>
+              <td>
+               {n !== selectedGood ? (
+               <button
+                  data-cy="AddButton"
+                  type="button"
+                  className="button"
+                  onClick={() => setValue(n)}
+                >
+                  +
+                </button>
+                ) : (
+                <button
+                  data-cy="RemoveButton"
+                  type="button"
+                  className="button"
+                  onClick={() => setValue(n)}
+                >
+                  -
+                </button>
+                )
+              }
+              </td>
 
-    <table className="table">
-      <tbody>
-        {goods.map(n => (
-          <tr data-cy="Good">
-            <td>
-              ------------------------------
-              <button
-                data-cy="AddButton"
-                type="button"
-                key={n}
-                className={classNames({ active: n === value })}
-                onClick={() => setValue(n)}
-              >
-                +
-              </button>
-            </td>
-
-            <td data-cy="GoodTitle" className="is-vcentered">
-              {n}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </main>
- );
+              <td data-cy="GoodTitle" className="is-vcentered">
+                {selectedGood === n ? (
+                  <h1 className = "title">
+                    {n}
+                  </h1>
+                    ) : (
+                      {n}
+                )
+              }
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </main>
+  );
 };
