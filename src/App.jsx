@@ -1,5 +1,8 @@
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
+
+import React, { useState } from 'react';
 
 export const goods = [
   'Dumplings',
@@ -14,7 +17,11 @@ export const goods = [
   'Garlic',
 ];
 
-export const App = () => (
+export const App = () => {
+  const [value, setValue] = useState('Jam');
+
+  return (
+
   <main className="section container">
     <h1 className="title is-flex is-align-items-center">No goods selected</h1>
 
@@ -25,46 +32,28 @@ export const App = () => (
 
     <table className="table">
       <tbody>
-        <tr data-cy="Good">
-          <td>
-            <button data-cy="AddButton" type="button" className="button">
-              +
-            </button>
-          </td>
+        {goods.map(n => (
+          <tr data-cy="Good">
+            <td>
+              ------------------------------
+              <button
+                data-cy="AddButton"
+                type="button"
+                key={n}
+                className={classNames({ active: n === value })}
+                onClick={() => setValue(n)}
+              >
+                +
+              </button>
+            </td>
 
-          <td data-cy="GoodTitle" className="is-vcentered">
-            Dumplings
-          </td>
-        </tr>
-
-        <tr data-cy="Good" className="has-background-success-light">
-          <td>
-            <button
-              data-cy="RemoveButton"
-              type="button"
-              className="button is-info"
-            >
-              -
-            </button>
-          </td>
-
-          <td data-cy="GoodTitle" className="is-vcentered">
-            Jam
-          </td>
-        </tr>
-
-        <tr data-cy="Good">
-          <td>
-            <button data-cy="AddButton" type="button" className="button">
-              +
-            </button>
-          </td>
-
-          <td data-cy="GoodTitle" className="is-vcentered">
-            Garlic
-          </td>
-        </tr>
+            <td data-cy="GoodTitle" className="is-vcentered">
+              {n}
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   </main>
-);
+ );
+};
