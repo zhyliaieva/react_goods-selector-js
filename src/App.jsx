@@ -19,57 +19,47 @@ export const goods = [
 
 export const App = () => {
   const [selectedGood, setValue] = useState('Jam');
+  let mainTitle  = <p>No goods selected</p>;
+
+  if (selectedGood && selectedGood.length > 0) {
+      mainTitle = (
+          <><p>{selectedGood} selected</p>
+          <button
+            class = 'delete ml-3'
+            data-cy="ClearButton"
+            type="button"
+            onClick={() => setValue('')} >
+      </button>
+          </>
+      );
+    }
 
   return (
     <main className="section container">
-      <h1 className="title is-flex is-align-items-center">No goods selected</h1>
-
       <h1 className="title is-flex is-align-items-center">
-        Jam is selected
-        <button data-cy="ClearButton" type="button" className="delete ml-3" />
+        {mainTitle}
       </h1>
-
       <table className="table">
         <tbody>
           {goods.map(n => (
             <tr
               data-cy="Good"
-              className ={classNames('is-flex', 'is-align-items-center', {
+              className={classNames('is-flex', 'is-align-items-center', {
                 'has-background-success-light': n === selectedGood,
-              })}>
-              <td>
-               {n !== selectedGood ? (
-               <button
-                  data-cy="AddButton"
-                  type="button"
-                  className="button"
-                  onClick={() => setValue(n)}
-                >
-                  +
-                </button>
-                ) : (
-                <button
-                  data-cy="RemoveButton"
-                  type="button"
-                  className="button"
-                  onClick={() => setValue(n)}
-                >
-                  -
-                </button>
-                )
-              }
+              })}
+            >
+              <td className="is-vcentered">
+                    <button
+                    data-cy="AddButton"
+                    type="button"
+                    className="button"
+                    onClick={() => setValue(n)}
+                  >
+                    +
+                  </button>
               </td>
 
-              <td data-cy="GoodTitle" className="is-vcentered">
-                {selectedGood === n ? (
-                  <h1 className = "title">
-                    {n}
-                  </h1>
-                    ) : (
-                      {n}
-                )
-              }
-              </td>
+              <td className="is-vcentered" data-cy="GoodTitle">{n}</td>
             </tr>
           ))}
         </tbody>
