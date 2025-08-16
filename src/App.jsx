@@ -19,26 +19,25 @@ export const goods = [
 
 export const App = () => {
   const [selectedGood, setValue] = useState('Jam');
-  let mainTitle  = <p>No goods selected</p>;
+  let mainTitle = <p>No goods selected</p>;
 
   if (selectedGood && selectedGood.length > 0) {
-      mainTitle = (
-          <><p>{selectedGood} selected</p>
-          <button
-            class = 'delete ml-3'
-            data-cy="ClearButton"
-            type="button"
-            onClick={() => setValue('')} >
-      </button>
-          </>
-      );
-    }
+    mainTitle = (
+      <>
+        <p>{selectedGood} selected</p>
+        <button
+          className="delete ml-3"
+          data-cy="ClearButton"
+          type="button"
+          onClick={() => setValue('')}
+        />
+      </>
+    );
+  }
 
   return (
     <main className="section container">
-      <h1 className="title is-flex is-align-items-center">
-        {mainTitle}
-      </h1>
+      <h1 className="title is-flex is-align-items-center">{mainTitle}</h1>
       <table className="table">
         <tbody>
           {goods.map(n => (
@@ -49,17 +48,19 @@ export const App = () => {
               })}
             >
               <td className="is-vcentered">
-                    <button
-                    data-cy="AddButton"
-                    type="button"
-                    className="button"
-                    onClick={() => setValue(n)}
-                  >
-                    +
-                  </button>
+                <button
+                  data-cy="AddButton"
+                  type="button"
+                  className="button"
+                  onClick={() => setValue(n)}
+                >
+                  +
+                </button>
               </td>
 
-              <td className="is-vcentered" data-cy="GoodTitle">{n}</td>
+              <td className="is-vcentered" data-cy="GoodTitle">
+                {n}
+              </td>
             </tr>
           ))}
         </tbody>
